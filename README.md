@@ -9,7 +9,7 @@ bun install
 To run:
 
 ```bash
-bun run index.ts
+bun run get-data < Username >
 ```
 
-This project was created using `bun init` in bun v1.1.20. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Check out this video [here](https://www.loom.com/share/a0798449e98641768944e473da001624?sid=06746662-ee0a-42a3-958a-5a0d6a7ddb6a) of it in use
