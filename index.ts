@@ -1,16 +1,18 @@
-import { z } from "zod";
+import {z} from "zod";
 
 const args = Bun.argv;
 if (args.length < 2) {
   throw new Error(`
-  Must Provide Profile Name like this 
-  "bun run get-data Jonathan.higger"
+  Must Provide Profile Name like this
+  "bun run get-data Jonathan.Higger"
 `);
 }
 
-const profileName = args.at(-1);
+const profileName = decodeURIComponent(args.at(-1) ?? "");
 
-console.log(`FETCHING THE DATA FOR ${profileName}`);
+if (!profileName || profileName.startsWith('/')) {
+  throw new Error("Profile name is required and must be a valid string");
+}
 
 const assignmentSchema = z.object({
   id: z.string(),
@@ -66,8 +68,11 @@ const deepAssignmentSchema = z.object({
     color: z.string(),
   }),
 });
+
+const CODE_CHALLENGES_API_URL = "https://www.codewars.com/api/v1/code-challenges/";
+
 const getAllAssignmentData = (assignmentSlug: string) =>
-  fetch(`https://www.codewars.com/api/v1/code-challenges/${assignmentSlug}`)
+  fetch(`${CODE_CHALLENGES_API_URL}${assignmentSlug}`)
     .then((response) => response.json())
     .then(deepAssignmentSchema.parse);
 
