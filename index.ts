@@ -14,6 +14,8 @@ if (!profileName || profileName.startsWith('/')) {
   throw new Error("Profile name is required and must be a valid string");
 }
 
+const CODE_CHALLENGES_API_URL = "https://www.codewars.com/api/v1/code-challenges/";
+
 const assignmentSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -68,8 +70,6 @@ const deepAssignmentSchema = z.object({
     color: z.string(),
   }),
 });
-
-const CODE_CHALLENGES_API_URL = "https://www.codewars.com/api/v1/code-challenges/";
 
 const getAllAssignmentData = (assignmentSlug: string) =>
   fetch(`${CODE_CHALLENGES_API_URL}${assignmentSlug}`)
